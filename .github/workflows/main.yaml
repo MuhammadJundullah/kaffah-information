@@ -11,32 +11,57 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout kode dari repository
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      # Setup PHP untuk composer
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.1' # Ganti dengan versi PHP yang Anda gunakan
+          php-version: '8.1'
           extensions: mbstring, intl, zip
           tools: composer
 
-      # Install dependencies dengan composer
-      - name: Install Dependencies with Composer
-        run: composer install --no-dev --prefer-dist --no-interaction
+      - name: Cache Composer Dependencies
+        uses: actions/cache@v3
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-composer-
 
-      # Setup Node.js untuk npm
+      - name: Install Dependencies with Composer
+        run: composer install --prefer-dist --no-interaction
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # Ganti dengan versi Node.js yang Anda gunakan
+          node-version: '18'
 
-      # Install dependencies dengan npm
+      - name: Cache npm Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       - name: Install Dependencies with npm
         run: npm install
 
-      # (Opsional) Jalankan build atau test
+      - name: Run Linting
+        run: npm run lint
+
       - name: Run Build Script
         run: npm run build
+
+      - name: Run PHP Tests
+        run: vendor/bin/phpunit
+
+      - name: Run JS Tests
+        run: npm test
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: dist/
