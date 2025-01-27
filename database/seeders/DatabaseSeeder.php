@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\kaffah;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,6 +19,24 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+        ]);
+
+        // Menggunakan factory untuk model kaffah
+        kaffah::factory()->create([
+            'name' => 'Ahmad',
+            'tahun' => '2023',
+            'januari' => '✔',
+            'februari' => '✘',
+            'maret' => '✔',
+            'april' => '✔',
+            'mei' => '✔',
+            'juni' => '✔',
+            'juli' => '✔',
+            'agustus' => '✔',
+            'september' => '✔',
+            'oktober' => '✔',
+            'november' => '✔',
+            'desember' => '✔',
         ]);
     }
 }

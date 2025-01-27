@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\KaffahController;
 use Illuminate\Support\Facades\Route;
+use App\Models\kaffah;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [KaffahController::class, 'index']);
