@@ -1,0 +1,42 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout kode dari repository
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Setup PHP untuk composer
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1' # Ganti dengan versi PHP yang Anda gunakan
+          extensions: mbstring, intl, zip
+          tools: composer
+
+      # Install dependencies dengan composer
+      - name: Install Dependencies with Composer
+        run: composer install --no-dev --prefer-dist --no-interaction
+
+      # Setup Node.js untuk npm
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Ganti dengan versi Node.js yang Anda gunakan
+
+      # Install dependencies dengan npm
+      - name: Install Dependencies with npm
+        run: npm install
+
+      # (Opsional) Jalankan build atau test
+      - name: Run Build Script
+        run: npm run build
