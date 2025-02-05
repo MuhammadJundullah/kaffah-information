@@ -19,4 +19,4 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: "./"
-          server-dir: "/kaffahtkn.rf.gd/laravel/"
+          server-dir: "/kaffahtkn.rf.gd/htdocs/laravel/"
