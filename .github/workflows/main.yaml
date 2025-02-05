@@ -21,3 +21,4 @@ jobs:
           local-dir: "./"
           server-dir: "/infokaffah.rf.gd/laravel/"
           dry-run: true
+          fetch-depth: 0
