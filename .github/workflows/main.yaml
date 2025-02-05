@@ -19,6 +19,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: "./"
-          server-dir: "/infokaffah.rf.gd/laravel/"
+          server-dir: "/kaffahtkn.rf.gd/laravel/"
           # dry-run: true
-          fetch-depth: 0
+          # fetch-depth: 0
