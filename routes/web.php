@@ -8,6 +8,8 @@ use App\Http\Controllers\KaffahController;
 
 Route::get('/', [KaffahController::class, 'index']);
 
+Route::get('/kaffah/{tahun}', [KaffahController::class, 'filter'])->name('filter');
+
 Route::get('/login', [AuthController::class, 'index'])->name('login');
 
 Route::post('/login', [AuthController::class, 'login']);

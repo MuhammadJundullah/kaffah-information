@@ -10,7 +10,15 @@ class KaffahController extends Controller
     public function index()
     {
         $data = kaffah::all();
-        return view('home', compact('data'));
+        $tahunList = Kaffah::distinct()->pluck('tahun');
+        return view('home', compact('data', 'tahunList'));
+    }
+
+    public function filter($tahun)
+    {
+        $data = kaffah::where('tahun', $tahun)->get();
+        $tahunList = Kaffah::distinct()->pluck('tahun');
+        return view('home', compact('data', 'tahunList'));
     }
 
     public function update(Request $request)
@@ -18,18 +26,12 @@ class KaffahController extends Controller
         $updatedData = $request->input('data', []);
 
         foreach ($updatedData as $id => $bulanData) {
-            $updateFields = [];
-
-            foreach ($bulanData as $bulan => $value) {
-                $updateFields[$bulan] = $value === '1' ? 1 : 0;
-            }
-
-            // Update database berdasarkan ID
-            \DB::table('kaffah')->where('id', $id)->update($updateFields);
+            \DB::table('kaffah')->where('id', $id)->update($bulanData);
         }
 
         return redirect()->back()->with('success', 'Data berhasil diperbarui!');
     }
+
 
     public function store(Request $request)
     {
@@ -44,19 +46,20 @@ class KaffahController extends Controller
             Kaffah::create([
                 'name' => $validated['name'],
                 'tahun' => $validated['tahun'],
+
                 // Pastikan kolom bulan diisi default, misalnya 0
-                'januari' => 0,
-                'februari' => 0,
-                'maret' => 0,
-                'april' => 0,
-                'mei' => 0,
-                'juni' => 0,
-                'juli' => 0,
-                'agustus' => 0,
-                'september' => 0,
-                'oktober' => 0,
-                'november' => 0,
-                'desember' => 0,
+                'januari' => "-",
+                'februari' => "-",
+                'maret' => "-",
+                'april' => "-",
+                'mei' => "-",
+                'juni' => "-",
+                'juli' => "-",
+                'agustus' => "-",
+                'september' => "-",
+                'oktober' => "-",
+                'november' => "-",
+                'desember' => "-",
             ]);
 
             // Redirect dengan pesan sukses
