@@ -18,5 +18,5 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: "./node_modules/"
-          server-dir: "/infokaffah.rf.gd/htdocs/laravel/node_modules/"
+          local-dir: "./"
+          server-dir: "/kaffahtkn.rf.gd/htdocs/laravel/"
