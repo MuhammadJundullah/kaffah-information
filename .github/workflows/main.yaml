@@ -1,4 +1,4 @@
-name: Redeploy Web Umi
+name: Redeploy Web Kaffah
 
 on:
   push:
